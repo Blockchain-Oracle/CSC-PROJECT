@@ -1,31 +1,33 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CheckCircleIcon, ClockIcon, FilterIcon, SearchIcon, BarChart3Icon, CheckIcon, XIcon } from 'lucide-react';
-import { FeedbackItem } from '../App';
+import { FeedbackItem } from '../utils';
 import FeedbackModal from '../components/FeedbackModal';
+import { DummyFeedBackItems } from '../dummyDatabase/feedback';
 
-interface AdminDashboardProps {
-  feedbackItems: FeedbackItem[];
-  updateStatus: (id: string, status: 'pending' | 'resolved') => void;
-}
+// interface AdminDashboardProps {
+//   feedbackItems: FeedbackItem[];
+//   updateStatus: (id: string, status: 'pending' | 'resolved') => void;
+// }
 
-const AdminDashboard: React.FC<AdminDashboardProps> = ({
-  feedbackItems,
-  updateStatus
-}) => {
+const AdminDashboard = () => {
 
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'resolved'>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFeedback, setSelectedFeedback] = useState<FeedbackItem | null>(null);
+
+  const [feedBackList, setFeedBackList] = useState<FeedbackItem[]>(DummyFeedBackItems)
+  
   // Get unique categories
   const categories = useMemo(() => {
     const uniqueCategories = new Set<string>();
-    feedbackItems.forEach(item => uniqueCategories.add(item.category));
+    feedBackList.forEach(item => uniqueCategories.add(item.category));
     return Array.from(uniqueCategories);
-  }, [feedbackItems]);
+  }, [feedBackList]);
+  
   // Filter feedback items
   const filteredItems = useMemo(() => {
-    return feedbackItems.filter(item => {
+    return feedBackList.filter(item => {
       // Status filter
       if (statusFilter !== 'all' && item.status !== statusFilter) {
         return false;
@@ -40,14 +42,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
       }
       return true;
     });
-  }, [feedbackItems, statusFilter, categoryFilter, searchQuery]);
+  }, [feedBackList, statusFilter, categoryFilter, searchQuery]);
+  
   // Stats
   const stats = useMemo(() => {
-    const total = feedbackItems.length;
-    const pending = feedbackItems.filter(item => item.status === 'pending').length;
-    const resolved = feedbackItems.filter(item => item.status === 'resolved').length;
+    const total = feedBackList.length;
+    const pending = feedBackList.filter(item => item.status === 'pending').length;
+    const resolved = feedBackList.filter(item => item.status === 'resolved').length;
     const categoryCounts: Record<string, number> = {};
-    feedbackItems.forEach(item => {
+    feedBackList.forEach(item => {
       categoryCounts[item.category] = (categoryCounts[item.category] || 0) + 1;
     });
     return {
@@ -56,22 +59,18 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
       resolved,
       categoryCounts
     };
-  }, [feedbackItems]);
+  }, [feedBackList]);
+
   // Format date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString();
   };
+
+
   // Handle status update and close modal
   const handleStatusUpdate = (id: string, status: 'pending' | 'resolved') => {
-    updateStatus(id, status);
-    // Update the selected feedback if modal is open
-    if (selectedFeedback && selectedFeedback.id === id) {
-      setSelectedFeedback({
-        ...selectedFeedback,
-        status
-      });
-    }
+    alert("update status")
   };
   return <div className="container mx-auto px-4 py-8">
       <div className="mb-8">

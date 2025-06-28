@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
+
 import { SendIcon, CheckCircleIcon, ShieldIcon, EyeOffIcon, FileTextIcon } from 'lucide-react';
 
-interface SubmitFeedbackProps {
-  onSubmit: (category: string, message: string) => any;
-}
-const SubmitFeedback: React.FC<SubmitFeedbackProps> = ({
-  onSubmit
-}) => {
+const SubmitFeedback = () => {
+  
   const [category, setCategory] = useState('');
+
   const [message, setMessage] = useState('');
+
   const [submitted, setSubmitted] = useState(false);
+
   const categories = ['Academics', 'Hostel', 'Administrative Issues', 'Facilities', 'Welfare', 'Others'];
+
   const handleSubmit = (e: React.FormEvent) => {
+
     e.preventDefault();
+
     if (category && message.trim()) {
-      onSubmit(category, message.trim());
       setSubmitted(true);
-      // Reset form
-      setCategory('');
-      setMessage('');
+
       // Reset submitted state after 5 seconds
       setTimeout(() => {
         setSubmitted(false);
       }, 5000);
     }
+
   };
-  return <div className="w-full bg-gradient-to-b from-purple-50 to-white">
+
+  return (
+    <div className="w-full bg-gradient-to-b from-purple-50 to-white">
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <section className="text-center mb-12">
@@ -76,7 +79,8 @@ const SubmitFeedback: React.FC<SubmitFeedbackProps> = ({
           <h2 className="text-2xl font-bold text-gray-800 mb-6">
             Submit Your Feedback
           </h2>
-          {submitted ? <div className="bg-green-50 border border-green-200 rounded-md p-4 flex items-center">
+          {submitted ? (
+            <div className="bg-green-50 border border-green-200 rounded-md p-4 flex items-center">
               <CheckCircleIcon className="h-6 w-6 text-green-500 mr-3" />
               <div>
                 <h3 className="font-medium text-green-800">
@@ -87,16 +91,20 @@ const SubmitFeedback: React.FC<SubmitFeedbackProps> = ({
                   been received.
                 </p>
               </div>
-            </div> : <form onSubmit={handleSubmit}>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
               <div className="mb-6">
                 <label htmlFor="category" className="block text-gray-700 font-medium mb-2">
                   Category
                 </label>
                 <select id="category" value={category} onChange={e => setCategory(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
                   <option value="">Select a category</option>
-                  {categories.map(cat => <option key={cat} value={cat}>
-                      {cat}
-                    </option>)}
+                  {categories.map(category => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="mb-6">
@@ -111,7 +119,8 @@ const SubmitFeedback: React.FC<SubmitFeedbackProps> = ({
                   Submit Feedback
                 </button>
               </div>
-            </form>}
+            </form>
+          )}
           <div className="mt-6 bg-gray-50 p-4 rounded-md border border-gray-200">
             <p className="text-sm text-gray-600">
               <strong>Privacy Notice:</strong> This system is designed to be
@@ -122,6 +131,8 @@ const SubmitFeedback: React.FC<SubmitFeedbackProps> = ({
           </div>
         </section>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default SubmitFeedback;

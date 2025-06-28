@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
+
 import { LockIcon, AlertCircleIcon } from 'lucide-react';
-interface AdminLoginProps {
-  onLogin: (username: string, password: string) => boolean;
-}
-const AdminLogin: React.FC<AdminLoginProps> = ({
-  onLogin
-}) => {
+
+const AdminLogin = () => {
+  
   const [username, setUsername] = useState('');
+
   const [password, setPassword] = useState('');
+
   const [error, setError] = useState('');
+
   const handleSubmit = (e: React.FormEvent) => {
+
     e.preventDefault();
-    setError('');
-    if (username.trim() && password) {
-      const success = onLogin(username, password);
-      if (!success) {
-        setError('Invalid username or password');
-      }
-    }
+
+    setError("")
+
   };
-  return <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 px-4">
+
+  return (
+
+    <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="text-center mb-8">
@@ -31,10 +32,12 @@ const AdminLogin: React.FC<AdminLoginProps> = ({
               Access the feedback management dashboard
             </p>
           </div>
-          {error && <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded flex items-start">
+          {error && (
+            <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded flex items-start">
               <AlertCircleIcon className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
               <span>{error}</span>
-            </div>}
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label htmlFor="username" className="block text-gray-700 font-medium mb-2">
@@ -52,16 +55,10 @@ const AdminLogin: React.FC<AdminLoginProps> = ({
               Sign In
             </button>
           </form>
-          <div className="mt-6 text-center text-sm text-gray-600">
-            <p>
-              For demo purposes, use:
-              <br />
-              Username: <strong>admin</strong> | Password:{' '}
-              <strong>admin123</strong>
-            </p>
-          </div>
+
         </div>
       </div>
-    </div>;
+    </div>
+  )
 };
 export default AdminLogin;
