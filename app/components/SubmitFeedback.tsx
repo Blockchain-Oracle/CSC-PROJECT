@@ -1,31 +1,24 @@
-import React, { useState } from 'react';
+'use client'
 
-import { SendIcon, CheckCircleIcon, ShieldIcon, EyeOffIcon, FileTextIcon } from 'lucide-react';
+import React, { useState } from 'react'
+import { SendIcon, CheckCircleIcon, ShieldIcon, EyeOffIcon, FileTextIcon } from 'lucide-react'
 
 const SubmitFeedback = () => {
-  
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('')
+  const [message, setMessage] = useState('')
+  const [submitted, setSubmitted] = useState(false)
 
-  const [message, setMessage] = useState('');
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const categories = ['Academics', 'Hostel', 'Administrative Issues', 'Facilities', 'Welfare', 'Others'];
+  const categories = ['Academics', 'Hostel', 'Administrative Issues', 'Facilities', 'Welfare', 'Others']
 
   const handleSubmit = (e: React.FormEvent) => {
-
-    e.preventDefault();
-
+    e.preventDefault()
     if (category && message.trim()) {
-      setSubmitted(true);
-
-      // Reset submitted state after 5 seconds
+      setSubmitted(true)
       setTimeout(() => {
-        setSubmitted(false);
-      }, 5000);
+        setSubmitted(false)
+      }, 5000)
     }
-
-  };
+  }
 
   return (
     <div className="w-full bg-gradient-to-b from-purple-50 to-white">
@@ -41,6 +34,7 @@ const SubmitFeedback = () => {
             difference.
           </p>
         </section>
+
         {/* Features Section */}
         <section className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
@@ -49,7 +43,7 @@ const SubmitFeedback = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2">100% Anonymous</h3>
             <p className="text-gray-600">
-              We don't collect any personal information. Your identity remains
+              We don&apos;t collect any personal information. Your identity remains
               completely protected.
             </p>
           </div>
@@ -74,6 +68,7 @@ const SubmitFeedback = () => {
             </p>
           </div>
         </section>
+
         {/* Form Section */}
         <section className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6 md:p-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">
@@ -98,7 +93,13 @@ const SubmitFeedback = () => {
                 <label htmlFor="category" className="block text-gray-700 font-medium mb-2">
                   Category
                 </label>
-                <select id="category" value={category} onChange={e => setCategory(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                <select 
+                  id="category" 
+                  value={category} 
+                  onChange={e => setCategory(e.target.value)} 
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  required
+                >
                   <option value="">Select a category</option>
                   {categories.map(category => (
                     <option key={category} value={category}>
@@ -111,10 +112,20 @@ const SubmitFeedback = () => {
                 <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
                   Your Feedback
                 </label>
-                <textarea id="message" value={message} onChange={e => setMessage(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md h-32 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Please describe your feedback, suggestion or concern in detail..." required></textarea>
+                <textarea 
+                  id="message" 
+                  value={message} 
+                  onChange={e => setMessage(e.target.value)} 
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md h-32 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  placeholder="Please describe your feedback, suggestion or concern in detail..." 
+                  required
+                />
               </div>
               <div className="flex justify-end">
-                <button type="submit" className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-md flex items-center transition-colors">
+                <button 
+                  type="submit" 
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-md flex items-center transition-colors"
+                >
                   <SendIcon className="h-4 w-4 mr-2" />
                   Submit Feedback
                 </button>
@@ -132,7 +143,7 @@ const SubmitFeedback = () => {
         </section>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SubmitFeedback;
+export default SubmitFeedback

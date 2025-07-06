@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
+'use client'
 
-import { LockIcon, AlertCircleIcon } from 'lucide-react';
+import React, { useState } from 'react'
+import { LockIcon, AlertCircleIcon } from 'lucide-react'
 
 const AdminLogin = () => {
-  
-  const [username, setUsername] = useState('');
-
-  const [password, setPassword] = useState('');
-
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
-
-    e.preventDefault();
-
+    e.preventDefault()
     setError("")
-
-  };
+  }
 
   return (
-
     <div className="min-h-[80vh] flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-lg shadow-lg p-8">
@@ -43,22 +37,39 @@ const AdminLogin = () => {
               <label htmlFor="username" className="block text-gray-700 font-medium mb-2">
                 Username
               </label>
-              <input id="username" type="text" value={username} onChange={e => setUsername(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required />
+              <input 
+                id="username" 
+                type="text" 
+                value={username} 
+                onChange={e => setUsername(e.target.value)} 
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                required 
+              />
             </div>
             <div className="mb-6">
               <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
                 Password
               </label>
-              <input id="password" type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required />
+              <input 
+                id="password" 
+                type="password" 
+                value={password} 
+                onChange={e => setPassword(e.target.value)} 
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                required 
+              />
             </div>
-            <button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition-colors">
+            <button 
+              type="submit" 
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition-colors"
+            >
               Sign In
             </button>
           </form>
-
         </div>
       </div>
     </div>
   )
-};
-export default AdminLogin;
+}
+
+export default AdminLogin
